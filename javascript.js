@@ -1,7 +1,8 @@
 const prefix = 'gridbox';
-// const gridboxElements = document.querySelectorAll(`[id^="${prefix}"]`);
 
 // create initial 16x16 grid
+let randomizeColor = false;
+
 createGrid(16);
 enableHoverEffect();
 
@@ -11,7 +12,7 @@ function createGrid(newGridSize) {
     const boxSize = containerSize / newGridSize;
     const gridContainer = document.querySelector(".grid_container");
     clearGrid();
-    
+
     for (let i = 0; i < (newGridSize * newGridSize); i++) {
         
         const newDiv = document.createElement('div');
@@ -23,12 +24,43 @@ function createGrid(newGridSize) {
         gridContainer.appendChild(newDiv);
     }
 }
+document.querySelector("#black_color_button").disabled = true;
+document.querySelector("#randomize_color_button").disabled = false;
+
+document.querySelector("#randomize_color_button").addEventListener('click', () => {
+    document.querySelector("#randomize_color_button").disabled = true;
+    document.querySelector("#black_color_button").disabled = false;
+    randomizeColor = true;
+    enableHoverEffect();
+})
+
+document.querySelector("#black_color_button").addEventListener('click', () => {
+    document.querySelector("#randomize_color_button").disabled = false;
+    document.querySelector("#black_color_button").disabled = true;
+    randomizeColor = false;
+    enableHoverEffect();
+})
 
 function enableHoverEffect() {
     const gridboxElements = document.querySelectorAll(`[id^="${prefix}"]`);
     gridboxElements.forEach(element => {
+       
+        let mouseoverCount = .1;
+        
         element.addEventListener('mouseover',(event) => {
-            event.target.style.backgroundColor = "black";
+            if (randomizeColor == true) {
+                event.target.style.backgroundColor = random_rgba();
+            }
+            else {
+                event.target.style.backgroundColor = "black";
+            }
+
+            // make square progressively darker
+            if (mouseoverCount < 1) {
+                mouseoverCount = mouseoverCount + .1;
+                element.style.opacity = mouseoverCount;
+                event.target.style.opacity = mouseoverCount;
+             }
         });
     });
 }
@@ -68,3 +100,8 @@ resetGridButton.addEventListener('click', () => {
             element.style.backgroundColor = "white";
     })
 })
+
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
