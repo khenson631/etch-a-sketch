@@ -7,12 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="grid_size_button">Click to change grid size</button>
-    <button id="reset_grid_button">Clear Current Grid</button>
-    <button id="black_color_button">Fill With Black</button>
-    <button id="randomize_color_button">Fill With Randomized Colors</button>
-    
+    <title>Etch-A-Sketch</title>
+    <h1>Etch-A-Sketch</h1>
+    <div class="button_container">
+        <button id="grid_size_button">Click to change grid size</button>
+        <button id="reset_grid_button">Clear Current Grid</button>
+        <button id="black_color_button">Fill With Black</button>
+        <button id="randomize_color_button">Fill With Randomized Colors</button>
+        <div class="radio_container">
+            <p id="gradual_darkening">Use Gradual Darkening on Hover Effect:</p>
+            <div class="radio_button_container">
+                <input type="radio" id="Yes" name="Gradual" value="Yes" checked>
+                <label for="Yes">Yes</label>
+                <input type="radio" id="No" name="Gradual" value="No">
+                <label for="Yes">No</label>
+            </div>
+        </div>
+    </div>
+
     <div class="grid_container"></div>
+    <footer>Designed by <a href="https://github.com/khenson631" target="_blank">Kyle Henson</a></footer>
 
     <!-- Link to JavaScript file -->
     <script src="javascript.js"></script>

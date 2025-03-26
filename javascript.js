@@ -44,9 +44,7 @@ document.querySelector("#black_color_button").addEventListener('click', () => {
 function enableHoverEffect() {
     const gridboxElements = document.querySelectorAll(`[id^="${prefix}"]`);
     gridboxElements.forEach(element => {
-       
         let mouseoverCount = .1;
-        
         element.addEventListener('mouseover',(event) => {
             if (randomizeColor == true) {
                 event.target.style.backgroundColor = random_rgba();
@@ -54,13 +52,19 @@ function enableHoverEffect() {
             else {
                 event.target.style.backgroundColor = "black";
             }
-
+            
             // make square progressively darker
-            if (mouseoverCount < 1) {
-                mouseoverCount = mouseoverCount + .1;
-                element.style.opacity = mouseoverCount;
-                event.target.style.opacity = mouseoverCount;
-             }
+            let gradualDarkeningEffect = document.querySelector('input[name="Gradual"]:checked').value;
+            if (gradualDarkeningEffect == 'Yes'){
+                if (mouseoverCount < 1) {
+                    mouseoverCount = mouseoverCount + .1;
+                    element.style.opacity = mouseoverCount;
+                    event.target.style.opacity = mouseoverCount;
+                 }
+            }
+            else {
+                event.target.style.opacity = 1;
+            }
         });
     });
 }
@@ -98,6 +102,7 @@ resetGridButton.addEventListener('click', () => {
     const gridboxElements = document.querySelectorAll(`[id^="${prefix}"]`);
     gridboxElements.forEach(element => {
             element.style.backgroundColor = "white";
+            element.style.opacity = 1;
     })
 })
 
